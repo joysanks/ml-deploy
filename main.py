@@ -153,7 +153,7 @@ def predict(test_img):
         else:
             label.append(-1)
     print(label)
-    print(type(label[0]))
+    #print(type(label[0]))
     return img, label
 
 
