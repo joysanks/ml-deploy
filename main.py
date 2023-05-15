@@ -35,7 +35,7 @@ def upload_train_image():
     img.save("training-data/s59/"+filename)
     return "Image upload successfully"
 
-@app.route('/upload-test-image', methods=['POST'], strict_slashes = False)
+@app.route('/upload-test-image', methods=['POST'])
 def upload_image():
     
     data = request.json['img']
