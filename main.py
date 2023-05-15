@@ -26,60 +26,14 @@ def hello_world():
 
 @app.route('/upload-train-image', methods=['POST'], strict_slashes = False)
 def upload_train_image():
-    data = request.get_json()
-    base64_images = data['images']
-    uploaded_files = []
-
-#     data = request.get_json()
-#   base64_images = data['images']
-#   uploaded_files = []
-
-#   # Specify the folder path where you want to save the images
-#   folder_path = '/path/to/folder/'
-
-#   for base64_image in base64_images:
-#     image_data = base64.b64decode(base64_image.split(',')[1])
-#     file_name = 'uploaded_image_' + str(len(uploaded_files) + 1) + '.jpg'
-#     file_path = os.path.join(folder_path, file_name)
-#     with open(file_path, 'wb') as f:
-#       f.write(image_data)
-#     uploaded_files.append(file_path)
-
-#   return {'message': 'Files uploaded successfully', 'files': uploaded_files}
-    folder_path = '/path'
-
-    for base64_image in base64_images:
-        print(base64_image)
-        image_data = base64.b64decode(base64_image.split(',')[1])
-        file_name = 'uploaded_image_' + str(len(uploaded_files) + 1) + '.jpg'
-        file_path = os.path.join(folder_path, file_name)
-        with open(file_name, 'wb') as f:
-            f.write(image_data)
-        uploaded_files.append(file_path)
-
-        return {'message': 'Files uploaded successfully', 'files': uploaded_files}
     
-    # data = request.json['img']
-    # data = data[23:]
-    # img = Image.open(io.BytesIO(base64.decodebytes(bytes(data, 'utf-8'))))
-    # # filename = str(random.randint(1, 1000000)) + 'my-image.jpeg'
-    # filename = 'test.jpg'
-    # img.save(filename)
-    
-    # # print(data)
-    # predicted_img , label= predict("./test.jpg")
-    # cv2.destroyAllWindows()
-    # cv2.waitKey(1)
-    # cv2.destroyAllWindows()
-    # print ("Recognized faces = ", label)
-
-    # data = {
-    #     "schId" : label 
-    # }
-
-    # label =[]
-
-    # return jsonify(data)
+    data = request.json['img']
+    data = data[23:]
+    img = Image.open(io.BytesIO(base64.decodebytes(bytes(data, 'utf-8'))))
+    filename = str(random.randint(1, 1000000)) + 'new-image.jpeg'
+    #filename = 'test.jpg'
+    img.save("training-data/s59/"+filename)
+    return "Image upload successfully"
 
 @app.route('/upload-test-image', methods=['POST'], strict_slashes = False)
 def upload_image():
@@ -148,10 +102,11 @@ def predict(test_img):
     for i in range(0, len(face)):
         labeltemp, confidence = face_recognizer.predict(face[i])
         print(confidence)
-        if confidence>50:
-            label.append(labeltemp)
-        else:
-            label.append(-1)
+        label.append(labeltemp)
+        # if confidence>50:
+        #     label.append(labeltemp)
+        # else:
+        #     label.append(-1)
     print(label)
     #print(type(label[0]))
     return img, label

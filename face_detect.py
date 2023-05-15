@@ -14,6 +14,8 @@ def face_detect(imagePath):
 		minNeighbors=5,
 		minSize=(30, 30)
 	)
+
+	#
 	
 	# For drawing rectangles over multiple faces in the image
 	for (x, y, w, h) in faces:
